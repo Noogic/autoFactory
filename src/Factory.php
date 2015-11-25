@@ -10,8 +10,7 @@ class Factory {
         if(!$reflectionClass->hasMethod('__construct'))
             return new $id;
 
-        $reflectionMethod = new \ReflectionMethod($id, '__construct');
-        $params = $reflectionMethod->getParameters();
+        $params = $this->getConstructorParams( $id );
 
         $args = [];
 
@@ -24,5 +23,17 @@ class Factory {
         $instance = $reflectionClass->newInstanceArgs($args);
 
         return $instance;
+    }
+
+
+    /**
+     * @param $id
+     * @return \ReflectionParameter[]
+     */
+    private function getConstructorParams ( $id ) {
+        $reflectionMethod = new \ReflectionMethod( $id, '__construct' );
+        $params = $reflectionMethod->getParameters();
+
+        return $params;
     }
 }
