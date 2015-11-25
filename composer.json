@@ -1,0 +1,22 @@
+{
+  "name": "noogic/autoFactory",
+  "description": "Creates instances and it's dependencies automatically",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joan Morell",
+      "email": "noogic@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "AutoFactory\\": "src",
+      "TestAutoFactory\\": "test"
+    },
+    "files": [
+      "helpers/arrays.php"
+    ]
+  }
+}
