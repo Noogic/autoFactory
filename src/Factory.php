@@ -5,7 +5,7 @@ namespace AutoFactory;
 
 
 class Factory {
-    public function get($id, $data = null){
+    public function get($id, array $data = null){
         $reflectionClass = new \ReflectionClass($id);
         if(!$reflectionClass->hasMethod('__construct'))
             return new $id;
@@ -37,11 +37,20 @@ class Factory {
      */
     private function getValues ( $data, $params ) {
         $values = [];
+        $data = $data ?: [];
 
+        /** @var \ReflectionParameter $param */
         foreach ( $params as $param ) {
             $key = $param->name;
+            $reflectionClass = $param->getClass();
 
-            $values[$key] = array_get( $data, $key );
+            if(!$reflectionClass)
+                $values[$key] = array_get($data, $key);
+            else{
+                $class = $reflectionClass->name;
+
+                $values[$key] = $this->get($class, array_get($data, $key));
+            }
         }
 
         return $values;

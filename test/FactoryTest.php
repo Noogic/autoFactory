@@ -39,4 +39,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($data['c'], $instance->c);
         $this->assertNull($instance->d);
     }
+
+    public function test_factory_get_instance_with_object(){
+        $class = $this->classes_namespace . 'Test_ClassWithObject';
+        $instance = $this->factory->get($class);
+
+        $this->assertInstanceOf($class, $instance);
+    }
 }
