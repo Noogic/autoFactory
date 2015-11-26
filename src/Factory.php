@@ -5,22 +5,15 @@ namespace AutoFactory;
 
 
 class Factory {
-    public function get($id, $data){
+    public function get($id, $data = null){
         $reflectionClass = new \ReflectionClass($id);
         if(!$reflectionClass->hasMethod('__construct'))
             return new $id;
 
         $params = $this->getConstructorParams( $id );
+        $values = $this->getValues($data, $params);
 
-        $args = [];
-
-        foreach ( $params as $param ) {
-            $key = $param->name;
-
-            $args[$key] = array_get($data, $key);
-        }
-
-        $instance = $reflectionClass->newInstanceArgs($args);
+        $instance = $reflectionClass->newInstanceArgs($values);
 
         return $instance;
     }
@@ -35,5 +28,22 @@ class Factory {
         $params = $reflectionMethod->getParameters();
 
         return $params;
+    }
+
+    /**
+     * @param $data
+     * @param $params
+     * @return array
+     */
+    private function getValues ( $data, $params ) {
+        $values = [];
+
+        foreach ( $params as $param ) {
+            $key = $param->name;
+
+            $values[$key] = array_get( $data, $key );
+        }
+
+        return $values;
     }
 }
