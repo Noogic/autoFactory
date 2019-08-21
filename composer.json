@@ -1,12 +1,12 @@
 {
-  "name": "noogic/autoFactory",
+  "name": "noogic/autofactory",
   "description": "Creates instances and it's dependencies automatically",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
     {
       "name": "Joan Morell",
-      "email": "noogic@gmail.com"
+      "email": "joanmorellandres@gmail.com"
     }
   ],
   "require": {},
